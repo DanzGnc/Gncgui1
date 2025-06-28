@@ -39,3 +39,24 @@ function HeaderButton:_create(parent)
 end
 
 return HeaderButton
+-- HeaderButton Component
+local Theme = require("GncUI.Theme")
+local Utils = require("GncUI.Utils")
+
+local HeaderButton = {}
+HeaderButton.__index = HeaderButton
+
+function HeaderButton.new(parent, config)
+    local self = setmetatable({}, HeaderButton)
+    
+    self.config = Utils.mergeConfig({
+        text = "X",
+        color = {255, 70, 70},
+        callback = function() end
+    }, config or {})
+    
+    print("Created header button:", self.config.text)
+    return self
+end
+
+return HeaderButton

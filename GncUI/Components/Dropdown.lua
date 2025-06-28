@@ -132,3 +132,35 @@ function Dropdown:setSelection(option)
 end
 
 return Dropdown
+-- Dropdown Component
+local Theme = require("GncUI.Theme")
+local Utils = require("GncUI.Utils")
+
+local Dropdown = {}
+Dropdown.__index = Dropdown
+
+function Dropdown.new(parent, config)
+    local self = setmetatable({}, Dropdown)
+    
+    self.config = Utils.mergeConfig({
+        label = "Dropdown",
+        options = {"Option 1", "Option 2"},
+        default = "Option 1",
+        callback = function() end
+    }, config or {})
+    
+    self.selected = self.config.default
+    
+    print("Created dropdown:", self.config.label, "Selected:", self.selected)
+    return self
+end
+
+function Dropdown:setSelected(option)
+    self.selected = option
+    if self.config.callback then
+        self.config.callback(option)
+    end
+    print("Dropdown selection changed to:", option)
+end
+
+return Dropdown

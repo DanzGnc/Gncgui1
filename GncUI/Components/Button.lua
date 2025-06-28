@@ -68,3 +68,37 @@ function Button:setCallback(callback)
 end
 
 return Button
+-- Button Component
+local Theme = require("GncUI.Theme")
+local Utils = require("GncUI.Utils")
+
+local Button = {}
+Button.__index = Button
+
+function Button.new(parent, config)
+    local self = setmetatable({}, Button)
+    
+    self.config = Utils.mergeConfig({
+        text = "Button",
+        size = {1, 40},
+        color = Theme.colors.elementBackground,
+        textColor = Theme.colors.text,
+        callback = function() end
+    }, config or {})
+    
+    print("Created button:", self.config.text)
+    return self
+end
+
+function Button:setText(text)
+    self.config.text = text
+    print("Button text updated to:", text)
+end
+
+function Button:click()
+    if self.config.callback then
+        self.config.callback(self)
+    end
+end
+
+return Button
