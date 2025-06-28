@@ -231,6 +231,170 @@ local function createMainTabContent()
         sampleButton.Text = "Tombol Contoh di Main"
     end)
 
+    -- Slider Example
+    local sliderFrame = Instance.new("Frame")
+    sliderFrame.Name = "SliderFrame"
+    sliderFrame.Parent = ContentFrame
+    sliderFrame.Size = UDim2.new(0.9, 0, 0, 80)
+    sliderFrame.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+    sliderFrame.LayoutOrder = 2
+    local sliderFrameCorner = Instance.new("UICorner", sliderFrame)
+    sliderFrameCorner.CornerRadius = UDim.new(0, 6)
+
+    local sliderLabel = Instance.new("TextLabel")
+    sliderLabel.Parent = sliderFrame
+    sliderLabel.Size = UDim2.new(1, 0, 0, 25)
+    sliderLabel.Position = UDim2.new(0, 0, 0, 5)
+    sliderLabel.Text = "Volume: 50"
+    sliderLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+    sliderLabel.Font = Enum.Font.GothamSemibold
+    sliderLabel.TextSize = 14
+    sliderLabel.BackgroundTransparency = 1
+
+    local sliderBackground = Instance.new("Frame")
+    sliderBackground.Parent = sliderFrame
+    sliderBackground.Size = UDim2.new(0.9, 0, 0, 10)
+    sliderBackground.Position = UDim2.new(0.05, 0, 0, 40)
+    sliderBackground.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    local sliderBgCorner = Instance.new("UICorner", sliderBackground)
+    sliderBgCorner.CornerRadius = UDim.new(0, 5)
+
+    local sliderFill = Instance.new("Frame")
+    sliderFill.Parent = sliderBackground
+    sliderFill.Size = UDim2.new(0.5, 0, 1, 0)
+    sliderFill.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
+    local sliderFillCorner = Instance.new("UICorner", sliderFill)
+    sliderFillCorner.CornerRadius = UDim.new(0, 5)
+
+    local sliderButton = Instance.new("TextButton")
+    sliderButton.Parent = sliderBackground
+    sliderButton.Size = UDim2.new(0, 20, 0, 20)
+    sliderButton.Position = UDim2.new(0.5, -10, 0.5, -10)
+    sliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    sliderButton.Text = ""
+    local sliderBtnCorner = Instance.new("UICorner", sliderButton)
+    sliderBtnCorner.CornerRadius = UDim.new(0.5, 0)
+
+    local dragging = false
+    local function updateSlider(input)
+        local relativeX = math.clamp((input.Position.X - sliderBackground.AbsolutePosition.X) / sliderBackground.AbsoluteSize.X, 0, 1)
+        sliderFill.Size = UDim2.new(relativeX, 0, 1, 0)
+        sliderButton.Position = UDim2.new(relativeX, -10, 0.5, -10)
+        local value = math.floor(relativeX * 100)
+        sliderLabel.Text = "Volume: " .. value
+    end
+
+    sliderButton.MouseButton1Down:Connect(function()
+        dragging = true
+    end)
+
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            updateSlider(input)
+        end
+    end)
+
+    game:GetService("UserInputService").InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+
+    sliderBackground.MouseButton1Down:Connect(function()
+        updateSlider(game:GetService("UserInputService"):GetMouseLocation())
+    end)
+
+    -- Dropdown Example
+    local dropdownFrame = Instance.new("Frame")
+    dropdownFrame.Name = "DropdownFrame"
+    dropdownFrame.Parent = ContentFrame
+    dropdownFrame.Size = UDim2.new(0.9, 0, 0, 50)
+    dropdownFrame.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+    dropdownFrame.LayoutOrder = 3
+    local dropdownFrameCorner = Instance.new("UICorner", dropdownFrame)
+    dropdownFrameCorner.CornerRadius = UDim.new(0, 6)
+
+    local dropdownLabel = Instance.new("TextLabel")
+    dropdownLabel.Parent = dropdownFrame
+    dropdownLabel.Size = UDim2.new(0.3, 0, 1, 0)
+    dropdownLabel.Text = "Theme:"
+    dropdownLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+    dropdownLabel.Font = Enum.Font.GothamSemibold
+    dropdownLabel.TextSize = 14
+    dropdownLabel.BackgroundTransparency = 1
+    dropdownLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+    local dropdownButton = Instance.new("TextButton")
+    dropdownButton.Parent = dropdownFrame
+    dropdownButton.Size = UDim2.new(0.65, 0, 0.8, 0)
+    dropdownButton.Position = UDim2.new(0.33, 0, 0.1, 0)
+    dropdownButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    dropdownButton.Text = "Dark Theme ▼"
+    dropdownButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    dropdownButton.Font = Enum.Font.Gotham
+    dropdownButton.TextSize = 14
+    local dropdownBtnCorner = Instance.new("UICorner", dropdownButton)
+    dropdownBtnCorner.CornerRadius = UDim.new(0, 4)
+
+    local dropdownList = Instance.new("Frame")
+    dropdownList.Parent = dropdownFrame
+    dropdownList.Size = UDim2.new(0.65, 0, 0, 120)
+    dropdownList.Position = UDim2.new(0.33, 0, 1, 5)
+    dropdownList.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    dropdownList.Visible = false
+    dropdownList.ZIndex = 10
+    local dropdownListCorner = Instance.new("UICorner", dropdownList)
+    dropdownListCorner.CornerRadius = UDim.new(0, 4)
+
+    local dropdownOptions = {"Dark Theme", "Light Theme", "Blue Theme", "Red Theme"}
+    local currentSelection = "Dark Theme"
+
+    for i, option in ipairs(dropdownOptions) do
+        local optionButton = Instance.new("TextButton")
+        optionButton.Parent = dropdownList
+        optionButton.Size = UDim2.new(1, 0, 0, 30)
+        optionButton.Position = UDim2.new(0, 0, 0, (i-1) * 30)
+        optionButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        optionButton.Text = option
+        optionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        optionButton.Font = Enum.Font.Gotham
+        optionButton.TextSize = 12
+        optionButton.BorderSizePixel = 0
+
+        if i < #dropdownOptions then
+            local divider = Instance.new("Frame")
+            divider.Parent = optionButton
+            divider.Size = UDim2.new(1, 0, 0, 1)
+            divider.Position = UDim2.new(0, 0, 1, 0)
+            divider.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+            divider.BorderSizePixel = 0
+        end
+
+        optionButton.MouseButton1Click:Connect(function()
+            currentSelection = option
+            dropdownButton.Text = option .. " ▼"
+            dropdownList.Visible = false
+            print("Selected theme: " .. option)
+        end)
+
+        optionButton.MouseEnter:Connect(function()
+            optionButton.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+        end)
+
+        optionButton.MouseLeave:Connect(function()
+            optionButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        end)
+    end
+
+    dropdownButton.MouseButton1Click:Connect(function()
+        dropdownList.Visible = not dropdownList.Visible
+        if dropdownList.Visible then
+            dropdownButton.Text = currentSelection .. " ▲"
+        else
+            dropdownButton.Text = currentSelection .. " ▼"
+        end
+    end)
+
     local anotherLabel = Instance.new("TextLabel")
     anotherLabel.Name = "AnotherLabelMain"
     anotherLabel.Parent = ContentFrame
@@ -243,7 +407,7 @@ local function createMainTabContent()
     anotherLabel.Font = Enum.Font.Gotham
     anotherLabel.TextSize = 14
     anotherLabel.TextWrapped = true
-    anotherLabel.LayoutOrder = 2
+    anotherLabel.LayoutOrder = 4
 end
 
 local function createSettingsTabContent()
