@@ -1,5 +1,5 @@
 
--- Title Component
+-- Title komponen
 local Theme = loadstring(game:HttpGet("https://raw.githubusercontent.com/DanzGnc/Gncgui1/refs/heads/main/GncUI/Theme.lua"))()
 local Utils = loadstring(game:HttpGet("https://raw.githubusercontent.com/DanzGnc/Gncgui1/refs/heads/main/GncUI/Utils.lua"))()
 
