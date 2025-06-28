@@ -108,36 +108,3 @@ function Slider:setValue(value)
 end
 
 return Slider
--- Slider Component
-local Theme = require("GncUI.Theme")
-local Utils = require("GncUI.Utils")
-
-local Slider = {}
-Slider.__index = Slider
-
-function Slider.new(parent, config)
-    local self = setmetatable({}, Slider)
-    
-    self.config = Utils.mergeConfig({
-        label = "Slider",
-        min = 0,
-        max = 100,
-        default = 50,
-        callback = function() end
-    }, config or {})
-    
-    self.value = self.config.default
-    
-    print("Created slider:", self.config.label, "Value:", self.value)
-    return self
-end
-
-function Slider:setValue(value)
-    self.value = math.max(self.config.min, math.min(self.config.max, value))
-    if self.config.callback then
-        self.config.callback(self.value)
-    end
-    print("Slider value changed to:", self.value)
-end
-
-return Slider

@@ -82,35 +82,3 @@ function Utils.formatNumber(number, decimals)
 end
 
 return Utils
--- Utility Functions
-local Utils = {}
-
-function Utils.mergeConfig(default, custom)
-    local result = {}
-    
-    -- Copy default values
-    for key, value in pairs(default) do
-        result[key] = value
-    end
-    
-    -- Override with custom values
-    if custom then
-        for key, value in pairs(custom) do
-            result[key] = value
-        end
-    end
-    
-    return result
-end
-
-function Utils.clearFrame(frame, exceptions)
-    -- Mock implementation for standard Lua
-    print("Clearing frame content")
-end
-
-function Utils.updateCanvasSize(frame)
-    -- Mock implementation for standard Lua
-    print("Updating canvas size")
-end
-
-return Utils

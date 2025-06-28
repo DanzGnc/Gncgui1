@@ -61,30 +61,3 @@ function Theme.setTheme(themeName)
 end
 
 return Theme
--- Theme Configuration
-local Theme = {}
-
-Theme.colors = {
-    background = {30, 30, 30},
-    header = {20, 20, 20},
-    sidebar = {40, 40, 40},
-    content = {50, 50, 50},
-    text = {220, 220, 220},
-    elementBackground = {55, 55, 55},
-    scrollbar = {80, 80, 80},
-    logo = {40, 40, 40}
-}
-
-Theme.fonts = {
-    regular = "default",
-    semibold = "semibold",
-    bold = "bold"
-}
-
-Theme.sizes = {
-    textSize = 14,
-    titleSize = 18,
-    headerSize = 16
-}
-
-return Theme

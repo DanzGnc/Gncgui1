@@ -1,7 +1,7 @@
 
 -- Main entry point untuk GUI Library
--- For standard Lua environment (non-Roblox)
-local GncUI = require("GncUI.init")
+-- Load GncUI from GitHub for Roblox compatibility
+local GncUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/DanzGnc/Gncgui1/refs/heads/main/GncUI/init.lua"))()
 
 -- Inisialisasi GUI
 local gui = GncUI.new({
@@ -19,12 +19,11 @@ gui:addTab("Main", function(contentFrame)
     local button = components.Button(contentFrame, {
         text = "Tombol Contoh di Main",
         size = {0.8, 40},
-        color = {70, 130, 200},
+        color = Color3.fromRGB(70, 130, 200),
         callback = function(btn)
             print("Tombol di tab Main ditekan!")
             btn:setText("Ditekan!")
-            -- task.wait(1) -- Replace with os.execute("sleep 1") for standard Lua
-            os.execute("sleep 1")
+            task.wait(1)
             btn:setText("Tombol Contoh di Main")
         end
     })
@@ -54,7 +53,7 @@ gui:addTab("Main", function(contentFrame)
     local label = components.Label(contentFrame, {
         text = "Ini adalah beberapa teks deskriptif di dalam tab Main. Anda bisa menambahkan lebih banyak elemen di sini.",
         size = {0.9, 60},
-        color = {55, 55, 55}
+        color = Color3.fromRGB(55, 55, 55)
     })
 end)
 

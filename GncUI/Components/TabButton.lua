@@ -50,31 +50,3 @@ function TabButton:setActive(active)
 end
 
 return TabButton
--- TabButton Component
-local Theme = require("GncUI.Theme")
-local Utils = require("GncUI.Utils")
-
-local TabButton = {}
-TabButton.__index = TabButton
-
-function TabButton.new(parent, config)
-    local self = setmetatable({}, TabButton)
-    
-    self.config = Utils.mergeConfig({
-        text = "Tab",
-        order = 1,
-        callback = function() end
-    }, config or {})
-    
-    self.active = false
-    
-    print("Created tab button:", self.config.text)
-    return self
-end
-
-function TabButton:setActive(active)
-    self.active = active
-    print("Tab button", self.config.text, "active:", active)
-end
-
-return TabButton
