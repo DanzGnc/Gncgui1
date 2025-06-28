@@ -3,6 +3,10 @@
 local Theme = require(script.Parent.Parent.Theme)
 local Utils = require(script.Parent.Parent.Utils)
 
+-- Import dependencies using loadstring for Roblox compatibility
+local Theme = loadstring(game:HttpGet("https://raw.githubusercontent.com/YourUsername/YourRepository/main/GncUI/Theme.lua"))()
+local Utils = loadstring(game:HttpGet("https://raw.githubusercontent.com/YourUsername/YourRepository/main/GncUI/Utils.lua"))()
+
 local Label = {}
 Label.__index = Label
 

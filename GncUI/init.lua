@@ -3,10 +3,10 @@
 local GncUI = {}
 GncUI.__index = GncUI
 
--- Import submodules
-local Theme = require(script.Theme)
-local Components = require(script.Components)
-local Utils = require(script.Utils)
+-- Import submodules using loadstring for Roblox compatibility
+local Theme = loadstring(game:HttpGet("https://raw.githubusercontent.com/YourUsername/YourRepository/main/GncUI/Theme.lua"))()
+local Components = loadstring(game:HttpGet("https://raw.githubusercontent.com/YourUsername/YourRepository/main/GncUI/Components/init.lua"))()
+local Utils = loadstring(game:HttpGet("https://raw.githubusercontent.com/YourUsername/YourRepository/main/GncUI/Utils.lua"))()
 
 -- Export Components untuk akses mudah
 GncUI.Components = Components
