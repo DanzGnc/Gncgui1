@@ -82,3 +82,55 @@ function Utils.formatNumber(number, decimals)
 end
 
 return Utils
+-- Utils Module
+local Utils = {}
+
+function Utils.mergeConfig(default, config)
+    local result = {}
+    
+    -- Copy default values
+    for key, value in pairs(default) do
+        result[key] = value
+    end
+    
+    -- Override with config values
+    for key, value in pairs(config) do
+        result[key] = value
+    end
+    
+    return result
+end
+
+function Utils.clearFrame(frame, excludeTypes)
+    excludeTypes = excludeTypes or {}
+    local excludeSet = {}
+    for _, typeName in ipairs(excludeTypes) do
+        excludeSet[typeName] = true
+    end
+    
+    for _, child in ipairs(frame:GetChildren()) do
+        local shouldExclude = false
+        for className in pairs(excludeSet) do
+            if child:IsA(className) then
+                shouldExclude = true
+                break
+            end
+        end
+        
+        if not shouldExclude then
+            child:Destroy()
+        end
+    end
+end
+
+function Utils.updateCanvasSize(scrollingFrame)
+    local layout = scrollingFrame:FindFirstChildOfClass("UIListLayout")
+    if layout then
+        local padding = scrollingFrame:FindFirstChildOfClass("UIPadding")
+        local paddingTop = padding and padding.PaddingTop.Offset or 0
+        local paddingBottom = padding and padding.PaddingBottom.Offset or 0
+        scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + paddingTop + paddingBottom)
+    end
+end
+
+return Utils

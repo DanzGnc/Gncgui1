@@ -1,7 +1,7 @@
 
 -- Title Component
-local Theme = require(script.Parent.Parent.Theme)
-local Utils = require(script.Parent.Parent.Utils)
+local Theme = loadstring(game:HttpGet("https://raw.githubusercontent.com/DanzGnc/Gncgui1/refs/heads/main/GncUI/Theme.lua"))()
+local Utils = loadstring(game:HttpGet("https://raw.githubusercontent.com/DanzGnc/Gncgui1/refs/heads/main/GncUI/Utils.lua"))()
 
 local Title = {}
 Title.__index = Title
