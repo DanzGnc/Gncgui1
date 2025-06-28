@@ -1,7 +1,7 @@
 
 -- Main entry point untuk GUI Library
 -- Load GncUI from GitHub for Roblox compatibility
-local GncUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/DanzGnc/Gncgui1/refs/heads/main/GncUI/init.lua"))()
+local GncUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/YourUsername/YourRepository/main/GncUI/init.lua"))()
 
 -- Inisialisasi GUI
 local gui = GncUI.new({
